@@ -2,7 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 from . import forms
-from django.contrib.auth import login, authenticate # import des fonctions login et authenticate
+
+# authentication/views.py
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
+
+from . import forms
+
 
 def login_page(request):
     form = forms.LoginForm()
@@ -21,3 +27,15 @@ def login_page(request):
                 message = 'Identifiants invalides.'
     return render(
         request, 'authentication/login.html', context={'form': form, 'message': message})
+
+
+
+
+
+
+
+def logout_user(request):
+    
+    logout(request)
+    return redirect('login')
+    
