@@ -25,9 +25,6 @@ from django.conf.urls.static import static
 
 import reviews.views
 
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', authentication.views.login_page, name='login'),
@@ -39,6 +36,8 @@ urlpatterns = [
     path('posts/', reviews.views.posts, name='posts'),
     path('abonnements/', reviews.views.abonnements, name='abonnements'),
     path('logout/', reviews.views.logout_view, name='logout'),
+    path('edit-ticket/<int:ticket_id>/', reviews.views.edit_ticket, name='edit_ticket'),
+    path('delete-ticket/<int:ticket_id>/', reviews.views.delete_ticket, name='delete_ticket'),
 ]
 
 if settings.DEBUG:

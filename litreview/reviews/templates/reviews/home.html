@@ -12,13 +12,17 @@
         {% if ticket.image %}
             <img src="{{ ticket.image.url }}" alt="Image du ticket" style="max-width: 300px; height: auto;">
         {% endif %}
+        {% if ticket.user == request.user %}
+            <a href="{% url 'edit_ticket' ticket.id %}">Modifier</a>
+            <a href="{% url 'delete_ticket' ticket.id %}">Supprimer</a>
+        {% endif %}
 
         
     {% endfor %}
-
-
-
-
 {% endblock content %}
+
+
+
+
 
 
