@@ -1,13 +1,58 @@
-# templates/base.html
-<html>
-    <head>
-        <title>LitReview</title>
-    </head>
-    <body>
-        <h1>LitReview</h1>
-        {% block content %}{% endblock content %}
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LitReview{% endblock %}</title>
+    <style>
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+        }
+        .navbar .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">LitReview</div>
         {% if user.is_authenticated %}
-            <p>Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
+            <nav class="nav-links">
+                <a href="{% url 'flux' %}">Flux</a>
+                <a href="{% url 'posts' %}">Posts</a>
+                <a href="{% url 'abonnements' %}">Abonnements</a>
+                <a href="{% url 'logout' %}">Se déconnecter</a>
+            </nav>
         {% endif %}
-    </body>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    {% if user.is_authenticated %}
+    <p>Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
+{% endif %}
+</body>
 </html>

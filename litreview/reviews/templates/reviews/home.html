@@ -4,4 +4,21 @@
 
     <p>Vous êtes connecté !</p>
 
+
+    <h2>Tickets</h2>
+    {% for ticket in tickets %}
+        <p>{{ ticket.title }}</p>
+        <p>{{ ticket.description }}</p>
+        {% if ticket.image %}
+            <img src="{{ ticket.image.url }}" alt="Image du ticket" style="max-width: 300px; height: auto;">
+        {% endif %}
+
+        
+    {% endfor %}
+
+
+
+
 {% endblock content %}
+
+
