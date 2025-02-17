@@ -1,3 +1,27 @@
+.custom-ticket {
+    border: 2px solid black;  /* Cadre noir */
+    border-radius: 8px;  /* Coins arrondis */
+    padding: 15px;  /* Espacement intérieur */
+    margin: 10px 0;  /* Espacement entre les tickets */
+    background-color: #f8f9fa;  /* Couleur de fond claire */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.custom-ticket img {
+    max-width: 30%;  /* Image responsive */
+    height: auto;
+    display: block;
+    margin-top: 10px;
+}
+
+.custom-ticket .actions {
+    margin-top: 10px;
+}
+
+
+
+
+
 .navbar {
     background-color: #333;
     padding: 15px;
@@ -19,3 +43,4 @@
 .navbar .nav-links a:hover {
     text-decoration: underline;
 }
+
