@@ -103,11 +103,6 @@ def review_delete(request, review_id):
 
     return render(request, 'reviews/review-delete.html', {'review': review})
 
-
-
-
-
-
 @login_required
 def review_edit(request, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)  # Vérifie que c'est son ticket
