@@ -34,13 +34,14 @@ urlpatterns = [
     path('ticket-post/', reviews.views.post_ticket, name='post_ticket'),
     path('flux/', reviews.views.flux, name='flux'),
     path('posts/', reviews.views.posts, name='posts'),
-    path('abonnements/', reviews.views.abonnements, name='abonnements'),
+    path('subscribe/', reviews.views.subscribe, name='subscribe'),
     path('logout/', reviews.views.logout_view, name='logout'),
     path('edit-ticket/<int:ticket_id>/', reviews.views.edit_ticket, name='edit_ticket'),
     path('delete-ticket/<int:ticket_id>/', reviews.views.delete_ticket, name='delete_ticket'),
     path('review-post/', reviews.views.review_post, name='review_post'),
     path('review-delete/<int:review_id>/', reviews.views.review_delete, name='review_delete'),
     path('review-edit/<int:review_id>/', reviews.views.review_edit, name='review_edit'),
+    path('unfollow_user/<int:user_id>/', reviews.views.unfollow_user, name='unfollow_user'),  
 ]
 
 if settings.DEBUG:

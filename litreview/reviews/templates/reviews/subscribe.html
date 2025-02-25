@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Gérer les abonnements</h2>
+
+    
+    {% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+
+    {% if userfollows %}
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Utilisateur</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for follow in userfollows %}
+            <tr>
+                <td>{{ follow.followed_user.username }}</td> <!-- Vérifie bien que c'est le bon utilisateur -->
+                <td>
+                    <form method="POST" action="{% url 'unfollow_user' follow.followed_user.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Se désabonner</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Vous ne suivez personne.</p>
+    {% endif %}
+
+{% endblock content %}

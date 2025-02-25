@@ -11,15 +11,24 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Ticket
 from .models import Review
+from .models import UserFollows
 from .forms import TicketForm
 from .forms import ReviewForm
+
+
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 @login_required
 def home(request):
     tickets = models.Ticket.objects.all()
     reviews = models.Review.objects.all()
-    return render(request, 'reviews/home.html', context={'tickets': tickets, 'reviews':reviews})
+    return render(request, 'reviews/home.html', context={'tickets': tickets, 'reviews': reviews})
+
 
 @login_required
 def post_ticket(request):
@@ -35,6 +44,7 @@ def post_ticket(request):
             return redirect('home')
     return render(request, 'reviews/post-ticket.html', context={'form': form})
 
+
 @login_required
 def delete_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)  # Vérifie que l'utilisateur est bien le propriétaire
@@ -43,7 +53,6 @@ def delete_ticket(request, ticket_id):
         return redirect('home')  # Redirige vers la page d'accueil après suppression
 
     return render(request, 'reviews/delete-ticket.html', {'ticket': ticket})
-
 
 
 @login_required
@@ -60,15 +69,38 @@ def edit_ticket(request, ticket_id):
     return render(request, 'reviews/edit-ticket.html', {'form': form, 'ticket': ticket})
 
 
-
 def flux(request):
     pass
+
 
 def posts(request):
     pass
 
-def abonnements(request):
-    pass
+
+@login_required
+def subscribe(request):
+   
+
+    #userfollows = models.UserFollows.objects.all()
+    userfollows = UserFollows.objects.filter(user=request.user)  # Récupère uniquement les suivis de l'utilisateur connecté
+    return render(request, 'reviews/subscribe.html', context={'userfollows': userfollows})
+
+@login_required
+def unfollow_user(request, user_id):
+    followed_user = get_object_or_404(User, id=user_id)
+    user_follow = UserFollows.objects.filter(user=request.user, followed_user=followed_user)
+
+    if user_follow.exists():
+        user_follow.delete()
+        messages.success(request, f"Vous ne suivez plus {followed_user}.")
+    else:
+        messages.error(request, "Vous ne suivez pas cet utilisateur.")
+
+    #return redirect("user_follows_list")  
+
+
+    return redirect('subscribe')
+
 
 def logout_view(request):
     pass
