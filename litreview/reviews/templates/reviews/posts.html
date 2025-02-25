@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Mes Posts</h1>
+
+{% for post in posts %}
+    {% if post.type == 'ticket' %}
+        <div>
+            <h2>Ticket</h2>
+            <h3>{{ post.object.title }}</h3>
+            <p>{{ post.object.description }}</p>
+            <p>Créé le : {{ post.object.time_created }}</p>
+            {% if post.object.image %}
+                <img src="{{ post.object.image.url }}" alt="{{ post.object.title }}">
+            {% endif %}
+
+
+        <div class="actions">
+            <a href="{% url 'ticket_edit' ticket.id %}" class="btn btn-primary btn-sm">Modifier</a>
+            <a href="{% url 'ticket_delete' ticket.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+        </div>
+
+
+        </div>
+    {% elif post.type == 'review' %}
+        <div>
+            <h2>Critique</h2>
+            <h3>{{ post.object.headline }}</h3>
+            <p>Note : {{ post.object.rating }}/5</p>
+            <p>{{ post.object.body }}</p>
+            <p>Créé le : {{ post.object.time_created }}</p>
+            <div class="actions">
+                <a href="{% url 'review_edit' post.object.id %}" class="btn btn-primary btn-sm">Modifier</a>
+                <a href="{% url 'review_delete' post.object.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+            </div>
+            
+            <h4>Ticket associé :</h4>
+            <div>
+                <p><strong>{{ post.object.ticket.title }}</strong></p>
+                <p>{{ post.object.ticket.description }}</p>
+                <p>Créé le : {{ post.object.ticket.time_created }}</p>
+                {% if post.object.ticket.image %}
+                    <img src="{{ post.object.ticket.image.url }}" alt="{{ post.object.ticket.title }}">
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <hr>
+{% endfor %}
+{% endblock %}

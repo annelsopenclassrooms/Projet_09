@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Votre flux</h2>
+
+
+    <a href="{% url 'ticket_post' %}" class="btn btn-primary mb-4">Demander une critique</a>
+    <a href="{% url 'create_ticket_and_review' %}" class="btn btn-primary mb-4">Créer une critique</a>
+
+    {% if all_posts %}
+        {% for post in all_posts %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {% if post.user == request.user %}
+                            Vous
+                        {% else %}
+                            {{ post.user.username }}
+                        {% endif %}
+                        a publié :
+                    </h5>
+
+                    {% if post.type == "ticket" %}
+                        <p><strong>Billet :</strong> {{ post.title }}</p>
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" class="img-fluid" alt="Image du billet">
+                        {% endif %}
+                        <p>{{ post.description }}</p>
+                        <div>
+                            <a href="{% url 'review_post' %}?ticket_id={{ post.id }}" class="btn btn-primary btn-sm">Créer une critique</a>
+                        </div>
+
+                        {% if post.user == request.user %}
+                        <div class="actions">
+                            <a href="{% url 'ticket_edit' post.id %}" class="btn btn-primary btn-sm">Modifier</a>
+                            <a href="{% url 'ticket_delete' post.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+                        </div>
+                    {% endif %}
+                        
+
+                    {% elif post.type == "review" %}
+                        <p><strong>Critique :</strong> {{ post.headline }}</p>
+                        <p>Note : {{ post.rating }}/5</p>
+                        <p>{{ post.body }}</p>
+                        <p><strong>En réponse à :</strong> {{ post.ticket.title }}</p>
+
+
+                        
+                        {% if post.user == request.user %}
+                        <div class="actions">
+                            <a href="{% url 'review_edit' post.id %}" class="btn btn-primary btn-sm">Modifier</a>
+                            <a href="{% url 'review_delete' post.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+                        </div>
+                    {% endif %}
+
+                    {% endif %}
+
+                    <p class="text-muted">Publié le {{ post.time_created }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Votre flux est vide.</p>
+    {% endif %}
+
+{% endblock content %}

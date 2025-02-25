@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
+
 {% block content %}
     <h2>Gérer les abonnements</h2>
 
-    
     {% if messages %}
     <div class="alert alert-info">
         {% for message in messages %}
@@ -11,9 +11,49 @@
     </div>
     {% endif %}
 
+    <!-- Formulaire de recherche -->
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="search_query" class="form-control" placeholder="Rechercher un utilisateur..." required>
+            <button type="submit" name="search_user" class="btn btn-primary">Rechercher</button>
+        </div>
+    </form>
 
+    <!-- Résultats de la recherche -->
+    {% if search_results is not None %}
+        <h3>Résultats de la recherche :</h3>
+        {% if search_results %}
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in search_results %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <button type="submit" name="follow_user" class="btn btn-success btn-sm">Suivre</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>Aucun utilisateur trouvé.</p>
+        {% endif %}
+    {% endif %}
 
-    {% if userfollows %}
+    <!-- Liste des abonnements -->
+    <h3>Vous suivez :</h3>
+    {% if user_follows %}
     <table class="table table-bordered">
         <thead class="table-dark">
             <tr>
@@ -22,9 +62,9 @@
             </tr>
         </thead>
         <tbody>
-            {% for follow in userfollows %}
+            {% for follow in user_follows %}
             <tr>
-                <td>{{ follow.followed_user.username }}</td> <!-- Vérifie bien que c'est le bon utilisateur -->
+                <td>{{ follow.followed_user.username }}</td>
                 <td>
                     <form method="POST" action="{% url 'unfollow_user' follow.followed_user.id %}">
                         {% csrf_token %}
@@ -36,7 +76,28 @@
         </tbody>
     </table>
     {% else %}
-        <p>Vous ne suivez personne.</p>
+        <p>Vous ne suivez encore personne.</p>
+    {% endif %}
+
+    <!-- Liste des abonnés -->
+    <h3>Vos abonnés :</h3>
+    {% if followers %}
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Utilisateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for follower in followers %}
+            <tr>
+                <td>{{ follower.user.username }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Aucun utilisateur ne vous suit pour le moment.</p>
     {% endif %}
 
 {% endblock content %}

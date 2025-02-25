@@ -20,6 +20,7 @@ from django.urls import path
 import authentication.views
 import reviews.views
 
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -31,17 +32,19 @@ urlpatterns = [
     path('logout/', authentication.views.logout_user, name='logout'),
     path('home/', reviews.views.home, name='home'),
     path('signup/', authentication.views.signup_page, name='signup'),
-    path('ticket-post/', reviews.views.post_ticket, name='post_ticket'),
+    path('ticket-post/', reviews.views.ticket_post, name='ticket_post'),
     path('flux/', reviews.views.flux, name='flux'),
     path('posts/', reviews.views.posts, name='posts'),
     path('subscribe/', reviews.views.subscribe, name='subscribe'),
     path('logout/', reviews.views.logout_view, name='logout'),
-    path('edit-ticket/<int:ticket_id>/', reviews.views.edit_ticket, name='edit_ticket'),
-    path('delete-ticket/<int:ticket_id>/', reviews.views.delete_ticket, name='delete_ticket'),
+    path('ticket-edit/<int:ticket_id>/', reviews.views.ticket_edit, name='ticket_edit'),
+    path('ticket-delete/<int:ticket_id>/', reviews.views.ticket_delete, name='ticket_delete'),
     path('review-post/', reviews.views.review_post, name='review_post'),
     path('review-delete/<int:review_id>/', reviews.views.review_delete, name='review_delete'),
     path('review-edit/<int:review_id>/', reviews.views.review_edit, name='review_edit'),
-    path('unfollow_user/<int:user_id>/', reviews.views.unfollow_user, name='unfollow_user'),  
+    path('unfollow_user/<int:user_id>/', reviews.views.unfollow_user, name='unfollow_user'), 
+    path('create-ticket-and-review/', reviews.views.create_ticket_and_review, name='create_ticket_and_review'),
+    
 ]
 
 if settings.DEBUG:
