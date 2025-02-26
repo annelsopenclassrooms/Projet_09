@@ -25,11 +25,11 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-@login_required
-def home(request):
-    tickets = models.Ticket.objects.all()
-    reviews = models.Review.objects.all()
-    return render(request, 'reviews/home.html', context={'tickets': tickets, 'reviews': reviews})
+#@login_required
+#def home(request):
+ #   tickets = models.Ticket.objects.all()
+ #   reviews = models.Review.objects.all()
+ #  return render(request, 'reviews/home.html', context={'tickets': tickets, 'reviews': reviews})
 
 
 @login_required
@@ -43,7 +43,7 @@ def ticket_post(request):
             ticket.user = request.user
             # now we can save
             ticket.save()
-            return redirect('home')
+            return redirect('flux')
     return render(request, 'reviews/ticket-post.html', context={'form': form})
 
 
@@ -52,7 +52,7 @@ def ticket_delete(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)  # Vérifie que l'utilisateur est bien le propriétaire
     if request.method == "POST":
         ticket.delete()
-        return redirect('home')  # Redirige vers la page d'accueil après suppression
+        return redirect('flux')  # Redirige vers la page d'accueil après suppression
 
     return render(request, 'reviews/ticket-delete.html', {'ticket': ticket})
 
@@ -64,7 +64,7 @@ def ticket_edit(request, ticket_id):
         form = TicketForm(request.POST, instance=ticket)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirige après modification
+            return redirect('flux')  # Redirige après modification
     else:
         form = TicketForm(instance=ticket)
 
@@ -107,8 +107,6 @@ def flux(request):
     return render(request, "reviews/flux.html", context)
 
 
-
-
 def posts(request):
     pass
 
@@ -126,7 +124,7 @@ def subscribe(request):
                 search_results = User.objects.filter(username__icontains=query).exclude(id=request.user.id)
                 if not search_results.exists():
                     messages.error(request, "Aucun utilisateur trouvé.")
-        
+
         elif "follow_user" in request.POST:  # Si la requête vient du bouton "Suivre"
             user_id = request.POST.get("user_id")
             followed_user = get_object_or_404(User, id=user_id)
@@ -145,9 +143,6 @@ def subscribe(request):
         "search_results": search_results
     }
     return render(request, "reviews/subscribe.html", context)
-
-
-
 
 
 @login_required
@@ -196,7 +191,7 @@ def review_delete(request, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)  # Vérifie que l'utilisateur est bien le propriétaire
     if request.method == "POST":
         review.delete()
-        return redirect('home')  # Redirige vers la page d'accueil après suppression
+        return redirect('flux')  # Redirige vers la page d'accueil après suppression
 
     return render(request, 'reviews/review-delete.html', {'review': review})
 
@@ -207,7 +202,7 @@ def review_edit(request, review_id):
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirige après modification
+            return redirect('flux')  # Redirige après modification
     else:
         form = ReviewForm(instance=review)
 
@@ -222,34 +217,34 @@ from .models import Ticket, Review
 def posts(request):
     # Récupérer les tickets de l'utilisateur connecté
     user_tickets = Ticket.objects.filter(user=request.user)
-    
+
     # Récupérer les critiques de l'utilisateur connecté
     user_reviews = Review.objects.filter(user=request.user)
-    
+
     # Combiner les tickets et les critiques dans une seule liste
     posts = []
-    
+
     for ticket in user_tickets:
         posts.append({
             'type': 'ticket',
             'object': ticket,
             'time_created': ticket.time_created,
         })
-    
+
     for review in user_reviews:
         posts.append({
             'type': 'review',
             'object': review,
             'time_created': review.time_created,
         })
-    
+
     # Trier la liste par date de création (du plus récent au plus ancien)
     posts.sort(key=lambda x: x['time_created'], reverse=True)
-    
+
     context = {
         'posts': posts,
     }
-    
+
     return render(request, 'reviews/posts.html', context)
 
 
@@ -272,7 +267,7 @@ def create_ticket_and_review(request):
             review.ticket = ticket
             review.save()
 
-            return redirect('home')  # Rediriger vers la page d'accueil après création
+            return redirect('flux')  # Rediriger vers la page d'accueil après création
     else:
         # Afficher les formulaires vides pour une requête GET
         ticket_form = TicketForm()

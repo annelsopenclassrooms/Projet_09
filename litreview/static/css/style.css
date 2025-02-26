@@ -1,46 +1,59 @@
-.custom-ticket {
-    border: 2px solid black;  /* Cadre noir */
-    border-radius: 8px;  /* Coins arrondis */
-    padding: 15px;  /* Espacement intérieur */
-    margin: 10px 0;  /* Espacement entre les tickets */
-    background-color: #f8f9fa;  /* Couleur de fond claire */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+/* ---- Thème Livres ---- */
+
+/* Fond général en beige pour rappeler les pages de livre */
+body {
+    background-color: #f5f0e1;
+    font-family: 'Georgia', serif; /* Typographie élégante */
+    color: #3e2723; /* Couleur marron foncé pour le texte */
 }
 
+/* ---- Style du ticket ---- */
+.custom-ticket {
+    border: 2px solid #8b5a2b; /* Couleur cuir vieilli */
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #fffaf0; /* Imitation de papier ancien */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+    font-family: 'Georgia', serif;
+}
+
+/* Image dans le ticket : rappel d’une couverture de livre */
 .custom-ticket img {
-    max-width: 30%;  /* Image responsive */
+    max-width: 40%;
     height: auto;
     display: block;
-    margin-top: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: 2px solid #8b5a2b;
 }
 
+/* Boutons d'action */
 .custom-ticket .actions {
     margin-top: 10px;
+    text-align: center;
 }
 
+.custom-ticket button {
+    background-color: #8b5a2b; /* Marron cuir */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
+.custom-ticket button:hover {
+    background-color: #5a3820;
+}
 
-
-
+/* ---- Barre de navigation ---- */
 .navbar {
-    background-color: #333;
+    background-color: #5d4037; /* Marron boisé */
     padding: 15px;
 }
 
 .navbar .logo {
     font-size: 24px;
-    font-weight: bold;
-    color: white;
-}
-
-.navbar .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: 15px;
-}
-
-.navbar .nav-links a:hover {
-    text-decoration: underline;
-}
-
+    font-weight:
