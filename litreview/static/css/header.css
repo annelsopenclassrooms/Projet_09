@@ -1,0 +1,83 @@
+/* ---- Header ---- */
+.navbar {
+    background-color: #5d4037;
+    height: 100px; /* Hauteur fixe */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrage général */
+    position: relative;
+    padding-right: 0;
+
+}
+
+/* Conteneur du logo et du titre */
+.header-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Logo */
+.header-logo {
+    height: 60px;
+    margin-right: 10px;
+}
+
+/* Titre */
+.navbar-brand {
+    font-size: 40px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Conteneur des liens à droite du titre */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    right: 20px; /* Positionne les liens à droite */
+    height: 100px; /* Assure que tous les liens remplissent la hauteur */
+    padding-right: 0;
+}
+
+/* Liens de navigation */
+.nav-item {
+    display: flex;
+    align-items: center; /* Alignement vertical parfait */
+    height: 100px;
+    padding-right: 0;
+
+}
+
+
+
+/* Conteneur du message de bienvenue en bas à droite */
+.greeting-container {
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    padding-right: 8px;
+}
+
+.greeting {
+    font-size: 12px;
+    color: #ddd;
+}
+
+/* Supprimer uniquement le padding à droite des liens de navigation */
+.navbar-nav .nav-link {
+    padding-right: 0;
+}
+
+/* Supprimer uniquement le padding à droite du message de bienvenue */
+.greeting-container {
+
+}
+
+/* Évite que Bootstrap impose un padding général sur la navbar */
+.navbar-expand-lg .navbar-nav {
+    margin-right: 0; /* Supprime l'éventuel décalage */
+}

@@ -1,0 +1,62 @@
+/* auth.css */
+.auth-container {
+    margin-top: 5rem; /* Équivalent à mt-5 en Bootstrap */
+}
+
+.auth-row {
+    display: flex;
+    justify-content: center; /* Centrer horizontalement les colonnes */
+    gap: 2rem; /* Espace entre les colonnes */
+}
+
+.auth-column {
+    width: 45%; /* Largeur des colonnes */
+    text-align: center; /* Centrer le texte */
+    padding: 1rem;
+    border: 1px solid #ddd; /* Bordure optionnelle */
+    border-radius: 8px; /* Coins arrondis */
+    background-color: #f9f9f9; /* Fond léger */
+}
+
+.auth-column h2 {
+    margin-bottom: 1rem;
+}
+
+.auth-column p {
+    margin-bottom: 1.5rem;
+}
+
+.auth-column .btn {
+    width: 100%; /* Bouton plein largeur */
+    margin-top: 1rem;
+}
+
+/* auth.css */
+.auth-btn {
+    width: auto; /* Largeur automatique en fonction du contenu */
+    padding: 0.5rem 2rem; /* Espacement intérieur */
+    max-width: 200px; /* Largeur maximale */
+    margin: 0 auto; /* Centrer le bouton */
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.messages li {
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.messages .success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.messages .error {
+    background-color: #f8d7da;
+    color: #721c24;
+}

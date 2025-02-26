@@ -1,34 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="auth-container">
+    <div class="auth-row">
+        <!-- Colonne Inscription (à gauche) -->
+        <div class="auth-column">
+            <h2>Inscription</h2>
+            <p>Inscrivez-vous maintenant</p>
+            <a href="{% url 'signup' %}" class="btn btn-success auth-btn">S'inscrire</a>
+        </div>
 
-    <h2>Connexion</h2>
+        <!-- Colonne Connexion (à droite) -->
+        <div class="auth-column">
+            <h2>Connexion</h2>
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-    {% if form.errors %}
-    <ul class="errorlist">
-        {% for field in form %}
-            {% for error in field.errors %}
-                <li>{{ field.label }} : {{ error }}</li>
-            {% endfor %}
-        {% endfor %}
-    </ul>
-{% endif %}
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-
-        <button type="submit">Se connecter</button>
-    </form>
-
-    <p>Pas encore membre ? <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a></p>
-
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    {{ form.username }}
+                </div>
+            
+                <div class="mb-3">
+                    {{ form.password }}
+                </div>
+            
+                <button type="submit" class="btn btn-success auth-btn">Se connecter</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}
