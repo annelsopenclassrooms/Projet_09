@@ -16,10 +16,10 @@ from django.contrib import messages
 
 def login_page(request):
     form = forms.LoginForm()
-    
+
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
-        
+
         if form.is_valid():
             user = authenticate(
                 username=form.cleaned_data['username'],
@@ -28,9 +28,9 @@ def login_page(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Connexion réussie.')
-                
+
                 # Redirection avec gestion du "next"
-                #next_url = request.GET.get('next', 'home')
+                # next_url = request.GET.get('next', 'home')
                 return redirect('flux')
             else:
                 messages.error(request, 'Identifiants invalides.')

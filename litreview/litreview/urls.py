@@ -40,7 +40,7 @@ urlpatterns = [
     path('review-edit/<int:review_id>/', reviews.views.review_edit, name='review_edit'),
     path('unfollow_user/<int:user_id>/', reviews.views.unfollow_user, name='unfollow_user'), 
     path('create-ticket-and-review/', reviews.views.create_ticket_and_review, name='create_ticket_and_review'),
-    
+
 ]
 
 if settings.DEBUG:
