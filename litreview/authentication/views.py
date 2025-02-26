@@ -8,10 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from . import forms
 from django.conf import settings
-from . import forms
 from django.contrib import messages
-
-
 
 
 def login_page(request):
@@ -38,9 +35,8 @@ def login_page(request):
     return render(request, 'authentication/login.html', {'form': form})
 
 
-
 def logout_user(request):
-    
+
     logout(request)
     return redirect('login')
     
