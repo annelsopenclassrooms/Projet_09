@@ -15,3 +15,16 @@ class SignupForm(UserCreationForm):
 
         model = get_user_model()
         fields = ('username',)
+
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ["username", "password1", "password2"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Masquer le help_text pour les champs de mot de passe
+        self.fields["password1"].help_text = None
+        self.fields["password2"].help_text = None

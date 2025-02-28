@@ -57,3 +57,9 @@ body {
 .navbar .logo {
     font-size: 24px;
     font-weight:
+
+
+.button-container {
+    text-align: right; /* Aligne le bouton à droite */
+    margin-top: 20px;
+}

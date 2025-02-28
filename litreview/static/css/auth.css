@@ -60,3 +60,20 @@
     background-color: #f8d7da;
     color: #721c24;
 }
+
+
+.sign-row {
+    display: flex;
+    justify-content: center; /* Centrer horizontalement les colonnes */
+    gap: 2rem; /* Espace entre les colonnes */
+}
+
+.sign-column {
+    width: 70%; /* Largeur des colonnes */
+    text-align: center; /* Centrer le texte */
+    padding: 1rem;
+    border: 1px solid #ddd; /* Bordure optionnelle */
+    border-radius: 8px; /* Coins arrondis */
+    background-color: #f9f9f9; /* Fond léger */
+}
+
