@@ -45,21 +45,30 @@ body {
 }
 
 .custom-ticket button:hover {
-    background-color: #5a3820;
+    background-color: #5a3820; /* Marron plus foncé au survol */
 }
 
 /* ---- Barre de navigation ---- */
 .navbar {
     background-color: #5d4037; /* Marron boisé */
     padding: 15px;
+    color: white; /* Texte en blanc pour contraster */
 }
 
 .navbar .logo {
     font-size: 24px;
-    font-weight:
+    font-weight: bold;
+}
 
-
+/* Conteneur pour les boutons */
 .button-container {
     text-align: right; /* Aligne le bouton à droite */
     margin-top: 20px;
+}
+
+/* Conteneur personnalisé */
+.custom-container {
+    max-width: 800px; /* Ajustez cette valeur selon vos besoins */
+    margin: 0 auto; /* Centrer le conteneur */
+    padding: 0 15px; /* Ajouter un peu de padding sur les côtés */
 }

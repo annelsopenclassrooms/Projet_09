@@ -162,8 +162,20 @@ def unfollow_user(request, user_id):
     return redirect('subscribe')
 
 
-def logout_view(request):
-    pass
+@login_required
+def remove_follower(request, follower_id):
+    # Récupérer l'entrée où l'utilisateur actuel est suivi par le follower
+    follow_relationship = get_object_or_404(
+        UserFollows, 
+        followed_user=request.user,  # L'utilisateur actuel est celui qui est suivi
+        user_id=follower_id          # Le follower est celui qui suit
+    )
+    
+    # Supprimer l'entrée dans la table UserFollows
+    follow_relationship.delete()
+    
+    # Rediriger l'utilisateur vers une page appropriée
+    return redirect('subscribe')
 
 
 @login_required

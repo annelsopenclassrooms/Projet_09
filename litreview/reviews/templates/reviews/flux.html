@@ -1,24 +1,17 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-    <h2>Votre flux</h2>
 
-
-    <a href="{% url 'ticket_post' %}" class="btn btn-primary mb-4">Demander une critique</a>
-    <a href="{% url 'create_ticket_and_review' %}" class="btn btn-primary mb-4">Créer une critique</a>
-
+<div class="custom-container">
+<div class="d-flex justify-content-between mb-4">
+    <a href="{% url 'ticket_post' %}" class="btn btn-primary ms-5">Demander une critique</a>
+    <a href="{% url 'create_ticket_and_review' %}" class="btn btn-primary me-5">Créer une critique</a>
+</div>
     {% if all_posts %}
         {% for post in all_posts %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        {% if post.user == request.user %}
-                            Vous
-                        {% else %}
-                            {{ post.user.username }}
-                        {% endif %}
-                        a publié :
-                    </h5>
+
 
                     {% if post.type == "ticket" %}
                         <p><strong>Billet :</strong> {{ post.title }}</p>
@@ -36,16 +29,46 @@
                             <a href="{% url 'ticket_delete' post.id %}" class="btn btn-danger btn-sm">Supprimer</a>
                         </div>
                     {% endif %}
-                        
 
                     {% elif post.type == "review" %}
-                        <p><strong>Critique :</strong> {{ post.headline }}</p>
-                        <p>Note : {{ post.rating }}/5</p>
-                        <p>{{ post.body }}</p>
-                        <p><strong>En réponse à :</strong> {{ post.ticket.title }}</p>
+
+                        <h5 class="card-title">
+                            {% if post.user == request.user %}
+                                Vous avez publié une critique :
+                            {% else %}
+                                {{ post.user.username }} a publié une critique :
+                            {% endif %}
+                            
+                        </h5>
+
+
+                        <p>{{ post.headline }} - 
 
 
                         
+                            {% for i in "12345" %}
+                                {% if i|add:0 <= post.rating %}
+                                    ★
+                                {% else %}
+                                    ☆
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+
+
+                        
+                        <p>{{ post.body }}</p>
+
+                        <!-- Cadre avec des informations sur le ticket -->
+                        <div class="card mb-3 ticket-info" style="border: 1px solid #ddd; padding: 15px; background-color: #f9f9f9;">
+                            
+                            <p><strong>Ticket- {{ post.ticket.user.username }}</strong></p>
+                            <p><strong>{{ post.ticket.title }}</strong></p>
+                            {% if post.ticket.image %}
+                                <img src="{{ post.ticket.image.url }}" class="img-fluid" alt="Image du ticket" style="max-width: 100px;">
+                            {% endif %}
+                        </div>
+
                         {% if post.user == request.user %}
                         <div class="actions">
                             <a href="{% url 'review_edit' post.id %}" class="btn btn-primary btn-sm">Modifier</a>
@@ -62,5 +85,5 @@
     {% else %}
         <p>Votre flux est vide.</p>
     {% endif %}
-
+</div>
 {% endblock content %}

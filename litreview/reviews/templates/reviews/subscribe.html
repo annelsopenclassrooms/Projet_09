@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Gérer les abonnements</h2>
+
+<div class="custom-container">
+
+
+    <h2>Suivre d'autres utilisateurs</h2>
 
     {% if messages %}
     <div class="alert alert-info">
@@ -52,7 +56,7 @@
     {% endif %}
 
     <!-- Liste des abonnements -->
-    <h3>Vous suivez :</h3>
+    <h3>Abonnements</h3>
     {% if user_follows %}
     <table class="table table-bordered">
         <thead class="table-dark">
@@ -80,7 +84,7 @@
     {% endif %}
 
     <!-- Liste des abonnés -->
-    <h3>Vos abonnés :</h3>
+    <h3>Abonnés</h3>
     {% if followers %}
     <table class="table table-bordered">
         <thead class="table-dark">
@@ -92,6 +96,12 @@
             {% for follower in followers %}
             <tr>
                 <td>{{ follower.user.username }}</td>
+                <td>
+                    <form method="POST" action="{% url 'remove_follower' follower.user.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer ce follower</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -100,4 +110,5 @@
         <p>Aucun utilisateur ne vous suit pour le moment.</p>
     {% endif %}
 
+</div>
 {% endblock content %}
