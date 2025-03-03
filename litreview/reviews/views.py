@@ -3,12 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from . import forms
-from . import models
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
 from .models import Ticket
 from .models import Review
 from .models import UserFollows
@@ -19,18 +15,7 @@ from .forms import ReviewForm
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 
-
-
-
 User = get_user_model()
-
-
-#@login_required
-#def home(request):
- #   tickets = models.Ticket.objects.all()
- #   reviews = models.Review.objects.all()
- #  return render(request, 'reviews/home.html', context={'tickets': tickets, 'reviews': reviews})
-
 
 @login_required
 def ticket_post(request):
@@ -105,10 +90,6 @@ def flux(request):
         "all_posts": all_posts
     }
     return render(request, "reviews/flux.html", context)
-
-
-def posts(request):
-    pass
 
 
 @login_required
@@ -220,10 +201,6 @@ def review_edit(request, review_id):
 
     return render(request, 'reviews/review-edit.html', {'form': form, 'review': review})
 
-
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from .models import Ticket, Review
 
 @login_required
 def posts(request):

@@ -28,18 +28,13 @@
     {% if search_results is not None %}
         <h3>Résultats de la recherche :</h3>
         {% if search_results %}
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Utilisateur</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+        <table class="table">
+
             <tbody>
                 {% for user in search_results %}
                 <tr>
-                    <td>{{ user.username }}</td>
-                    <td>
+                    <td style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <span>{{ user.username }}</span>
                         <form method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="user_id" value="{{ user.id }}">
@@ -50,6 +45,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        
         {% else %}
             <p>Aucun utilisateur trouvé.</p>
         {% endif %}
@@ -58,18 +54,15 @@
     <!-- Liste des abonnements -->
     <h3>Abonnements</h3>
     {% if user_follows %}
-    <table class="table table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>Utilisateur</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+
+
+
+    <table class="table">
         <tbody>
             {% for follow in user_follows %}
             <tr>
-                <td>{{ follow.followed_user.username }}</td>
-                <td>
+                <td style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <span>{{ follow.followed_user.username }}</span>
                     <form method="POST" action="{% url 'unfollow_user' follow.followed_user.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger btn-sm">Se désabonner</button>
@@ -79,6 +72,7 @@
             {% endfor %}
         </tbody>
     </table>
+   
     {% else %}
         <p>Vous ne suivez encore personne.</p>
     {% endif %}
@@ -86,26 +80,22 @@
     <!-- Liste des abonnés -->
     <h3>Abonnés</h3>
     {% if followers %}
-    <table class="table table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>Utilisateur</th>
-            </tr>
-        </thead>
+    <table class="table">
         <tbody>
             {% for follower in followers %}
             <tr>
-                <td>{{ follower.user.username }}</td>
-                <td>
+                <td style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <span>{{ follower.user.username }}</span>
                     <form method="POST" action="{% url 'remove_follower' follower.user.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm">Supprimer ce follower</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer cet abonné</button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    
     {% else %}
         <p>Aucun utilisateur ne vous suit pour le moment.</p>
     {% endif %}

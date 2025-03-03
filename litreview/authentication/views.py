@@ -14,6 +14,10 @@ from django.contrib import messages
 def login_page(request):
     form = forms.LoginForm()
 
+    # Supprimer les anciens messages pour éviter les doublons après une redirection
+    storage = messages.get_messages(request)
+    storage.used = True  
+    
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
 
@@ -25,9 +29,6 @@ def login_page(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Connexion réussie.')
-
-                # Redirection avec gestion du "next"
-                # next_url = request.GET.get('next', 'home')
                 return redirect('flux')
             else:
                 messages.error(request, 'Identifiants invalides.')
@@ -38,6 +39,7 @@ def login_page(request):
 def logout_user(request):
 
     logout(request)
+    messages.success(request, 'Déconnexion réussie.')
     return redirect('login')
     
 def signup_page(request):
