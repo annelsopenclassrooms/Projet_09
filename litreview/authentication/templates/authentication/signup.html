@@ -2,65 +2,71 @@
 {% load static %}
 
 {% block content %}
-<div class="sign-row">
-    <form method="post" class="custom-form">
-        {% csrf_token %}
+<div class="custom-container">
+    <h2 style="text-align: center;"></h2style>Inscrivez-vous</h2>
 
-        <!-- Conteneur principal avec une largeur maximale -->
-        <div class="mx-auto" style="max-width: 400px;">
+        <form method="post" class="custom-form">
+            {% csrf_token %}
 
-            <!-- Champs Nom d’utilisateur -->
-            <div class="mb-3">
-                <input type="text" 
-                       id="{{ form.username.id_for_label }}" 
-                       name="{{ form.username.html_name }}" 
-                       placeholder="Nom d'utilisateur" 
-                       class="form-control">
-                {% if form.username.errors %}
-                    <div class="error-text">
-                        {{ form.username.errors.0 }}
-                    </div>
-                {% endif %}
+            <!-- Conteneur principal sans largeur maximale -->
+            <div class="mx-auto" style="width: 100%; max-width: 400px;">
+
+                <!-- Champs Nom d’utilisateur -->
+                <div class="mb-3">
+                    <input type="text" 
+                        id="{{ form.username.id_for_label }}" 
+                        name="{{ form.username.html_name }}" 
+                        placeholder="Nom d'utilisateur" 
+                        class="form-control" 
+                        style="width: 100%; text-align: center;">
+                    {% if form.username.errors %}
+                        <div class="error-text">
+                            {{ form.username.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Champ Mot de passe -->
+                <div class="mb-3">
+                    <input type="password" 
+                        id="{{ form.password1.id_for_label }}" 
+                        name="{{ form.password1.html_name }}" 
+                        placeholder="Mot de passe" 
+                        class="form-control" 
+                        style="width: 100%; text-align: center;">
+                    {% if form.password1.errors %}
+                        <div class="error-text">
+                            {{ form.password1.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Champ Confirmation du mot de passe -->
+                <div class="mb-3">
+                    <input type="password" 
+                        id="{{ form.password2.id_for_label }}" 
+                        name="{{ form.password2.html_name }}" 
+                        placeholder="Confirmer mot de passe" 
+                        class="form-control" 
+                        style="width: 100%; text-align: center;">
+                    {% if form.password2.errors %}
+                        <div class="error-text">
+                            {{ form.password2.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Conteneur des boutons alignés à droite -->
+                <div class="d-flex justify-content-end">
+                    <!-- Bouton Retour avec un petit espace à droite -->
+                    <a href="{% url 'login' %}" class="btn btn-secondary" style="margin-right: 10px;">Retour</a>
+
+                    <!-- Bouton S'inscrire -->
+                    <button type="submit" class="btn btn-success">S'inscrire</button>
+                </div>
+
             </div>
+        </form>
 
-            <!-- Champ Mot de passe -->
-            <div class="mb-3">
-                <input type="password" 
-                       id="{{ form.password1.id_for_label }}" 
-                       name="{{ form.password1.html_name }}" 
-                       placeholder="Mot de passe" 
-                       class="form-control">
-                {% if form.password1.errors %}
-                    <div class="error-text">
-                        {{ form.password1.errors.0 }}
-                    </div>
-                {% endif %}
-            </div>
-
-            <!-- Champ Confirmation du mot de passe -->
-            <div class="mb-3">
-                <input type="password" 
-                       id="{{ form.password2.id_for_label }}" 
-                       name="{{ form.password2.html_name }}" 
-                       placeholder="Confirmation du mot de passe" 
-                       class="form-control">
-                {% if form.password2.errors %}
-                    <div class="error-text">
-                        {{ form.password2.errors.0 }}
-                    </div>
-                {% endif %}
-            </div>
-
-            <!-- Conteneur des boutons alignés à droite -->
-            <div class="d-flex justify-content-end">
-                <!-- Bouton Retour avec un petit espace à droite -->
-                <a href="{% url 'login' %}" class="btn btn-secondary" style="margin-right: 10px;">Retour</a>
-
-                <!-- Bouton S'inscrire -->
-                <button type="submit" class="btn btn-success">S'inscrire</button>
-            </div>
-
-        </div>
-    </form>
 </div>
 {% endblock content %}
