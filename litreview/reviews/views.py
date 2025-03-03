@@ -19,17 +19,17 @@ User = get_user_model()
 
 @login_required
 def ticket_post(request):
-    form = forms.TicketForm()
+    ticket_form = forms.TicketForm()
     if request.method == 'POST':
-        form = forms.TicketForm(request.POST, request.FILES)
-        if form.is_valid():
-            ticket = form.save(commit=False)
+        ticket_form = forms.TicketForm(request.POST, request.FILES)
+        if ticket_form.is_valid():
+            ticket = ticket_form.save(commit=False)
             # set the uploader to the user before saving the model
             ticket.user = request.user
             # now we can save
             ticket.save()
             return redirect('flux')
-    return render(request, 'reviews/ticket-post.html', context={'form': form})
+    return render(request, 'reviews/ticket-post.html', context={'ticket_form': ticket_form})
 
 
 @login_required

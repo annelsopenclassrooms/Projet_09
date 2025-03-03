@@ -1,0 +1,14 @@
+<div class="mb-3">
+    <label for="{{ ticket_form.title.id_for_label }}" class="form-label">Titre</label>
+    <input type="text" name="title" id="{{ ticket_form.title.id_for_label }}" class="form-control w-100" value="{{ ticket_form.title.value|default:'' }}">
+</div>
+
+<div class="mb-3">
+    <label for="{{ ticket_form.description.id_for_label }}" class="form-label">Description</label>
+    <textarea name="description" id="{{ ticket_form.description.id_for_label }}" class="form-control w-100" rows="6">{{ ticket_form.description.value|default:'' }}</textarea>
+</div>
+
+<div class="mb-3">
+    <label for="{{ ticket_form.image.id_for_label }}" class="form-label d-block">Image</label>
+    {{ ticket_form.image }}
+</div>

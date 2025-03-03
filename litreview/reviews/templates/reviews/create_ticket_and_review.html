@@ -1,17 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Créer un ticket et une critique</h1>
+
+{% if ticket_form.errors or review_form.errors %}
+    <div class="alert alert-danger">
+        <strong>Erreurs détectées :</strong>
+        <ul>
+            {% for field, errors in ticket_form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for field, errors in review_form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    
-    <h2>Ticket</h2>
-    {{ ticket_form.as_p }}
+    {% include '_ticket_form.html' %}
     
     <h2>Critique</h2>
-    {{ review_form.as_p }}
+    {% include '_review_form.html' %}
     
-    <button type="submit">Envoyer</button>
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Publier</button>
+    </div>
 </form>
+
+
+{% if ticket_form.errors or review_form.errors %}
+    <div class="alert alert-danger">
+        <strong>Erreurs détectées :</strong>
+        <ul>
+            {% for field, errors in ticket_form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for field, errors in review_form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 {% endblock %}
