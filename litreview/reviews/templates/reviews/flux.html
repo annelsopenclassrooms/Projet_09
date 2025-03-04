@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="custom-container">
+
 <div class="d-flex justify-content-between mb-4">
     <a href="{% url 'ticket_post' %}" class="btn btn-primary ms-5">Demander une critique</a>
     <a href="{% url 'create_ticket_and_review' %}" class="btn btn-primary me-5">Créer une critique</a>
@@ -14,14 +14,27 @@
 
 
                     {% if post.type == "ticket" %}
-                        <p><strong>Billet :</strong> {{ post.title }}</p>
+
+                        <p>
+                            {% if post.user == request.user %}
+                                Vous avez demandé une critique
+                            {% else %}
+                                {{ post.user.username }} a demandé une critique
+                            {% endif %}
+                            
+                        </p>
+
+
+                        <p><strong>{{ post.title }}</strong></p>
                         {% if post.image %}
                             <img src="{{ post.image.url }}" class="img-fluid" alt="Image du billet">
                         {% endif %}
                         <p>{{ post.description }}</p>
-                        <div>
+
+                        
+                        {% if not post.review_set.exists %}
                             <a href="{% url 'review_post' %}?ticket_id={{ post.id }}" class="btn btn-primary btn-sm">Créer une critique</a>
-                        </div>
+                        {% endif %}
 
                         {% if post.user == request.user %}
                         <div class="actions">
@@ -34,9 +47,9 @@
 
                         <h5 class="card-title">
                             {% if post.user == request.user %}
-                                Vous avez publié une critique :
+                                Vous avez publié une critique
                             {% else %}
-                                {{ post.user.username }} a publié une critique :
+                                {{ post.user.username }} a publié une critique
                             {% endif %}
                             
                         </h5>
@@ -85,5 +98,5 @@
     {% else %}
         <p>Votre flux est vide.</p>
     {% endif %}
-</div>
+
 {% endblock content %}

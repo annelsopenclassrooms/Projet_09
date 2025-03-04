@@ -98,6 +98,10 @@ def subscribe(request):
     followers = UserFollows.objects.filter(followed_user=request.user)  # Utilisateurs qui me suivent
     search_results = None  # Initialisation des résultats de recherche
 
+    # Supprimer les anciens messages pour éviter les doublons après une redirection
+    storage = messages.get_messages(request)
+    storage.used = True  
+
     if request.method == "POST":
         if "search_user" in request.POST:  # Si la requête vient de la recherche
             query = request.POST.get("search_query", "").strip()
@@ -177,7 +181,7 @@ def review_post(request):
             # now we can save
             review.save()
             return redirect('flux')
-    return render(request, 'reviews/review-post.html', context={'form': form})
+    return render(request, 'reviews/review-post.html', context={'form': form, 'ticket': ticket})
 
 @login_required
 def review_delete(request, review_id):

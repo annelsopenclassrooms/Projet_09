@@ -5,24 +5,12 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         
-        <div class="mb-3">
-            <label for="{{ ticket_form.title.id_for_label }}" class="form-label">Titre</label>
-            <input type="text" name="title" id="{{ form.title.id_for_label }}" class="form-control w-100" value="{{ ticket_form.title.value|default:'' }}">
-        </div>
-        
-        <div class="mb-3">
-            <label for="{{ ticket_form.description.id_for_label }}" class="form-label">Description</label>
-            <textarea name="description" id="{{ form.description.id_for_label }}" class="form-control w-100" rows="6">{{ form.description.value|default:'' }}</textarea>
-        </div>
-        
-        <div class="mb-3">
-            <label for="{{ ticket_form.image.id_for_label }}" class="form-label d-block">Image</label>
-            {{ ticket_form.image }}
-        </div>
-        
+        {% include '_ticket_form.html' %}
+
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Publier</button>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
         </div>
+
     </form>
 
 {% endblock content %}
