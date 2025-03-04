@@ -1,50 +1,101 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-<h1>Mes Posts</h1>
-
-{% for post in posts %}
-    {% if post.type == 'ticket' %}
-        <div>
-            <h2>Ticket</h2>
-            <h3>{{ post.object.title }}</h3>
-            <p>{{ post.object.description }}</p>
-            <p>Créé le : {{ post.object.time_created }}</p>
-            {% if post.object.image %}
-                <img src="{{ post.object.image.url }}" alt="{{ post.object.title }}">
-            {% endif %}
 
 
-        <div class="actions">
-            <a href="{% url 'ticket_edit' post.object.id %}" class="btn btn-primary btn-sm">Modifier</a>
-            <a href="{% url 'ticket_delete' post.object.id %}" class="btn btn-danger btn-sm">Supprimer</a>
-        </div>
+{% if posts %}
+    {% for post in posts %}
+        {% if post.type == 'ticket' %}
+        <div class="card mb-3">
+            <div class="card-body">
+                
 
-
-        </div>
-    {% elif post.type == 'review' %}
-        <div>
-            <h2>Critique</h2>
-            <h3>{{ post.object.headline }}</h3>
-            <p>Note : {{ post.object.rating }}/5</p>
-            <p>{{ post.object.body }}</p>
-            <p>Créé le : {{ post.object.time_created }}</p>
-            <div class="actions">
-                <a href="{% url 'review_edit' post.object.id %}" class="btn btn-primary btn-sm">Modifier</a>
-                <a href="{% url 'review_delete' post.object.id %}" class="btn btn-danger btn-sm">Supprimer</a>
-            </div>
-            
-            <h4>Ticket associé :</h4>
-            <div>
-                <p><strong>{{ post.object.ticket.title }}</strong></p>
-                <p>{{ post.object.ticket.description }}</p>
-                <p>Créé le : {{ post.object.ticket.time_created }}</p>
-                {% if post.object.ticket.image %}
-                    <img src="{{ post.object.ticket.image.url }}" alt="{{ post.object.ticket.title }}">
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Vous avez publié un ticket</h4>
+                    <p class="text-muted">{{ post.object.time_created|date:"d F Y à H:i" }}</p>
+                </div>
+                <h3>{{ post.object.title }}</h3>
+                
+                <p>{{ post.object.description }}</p>
+                
+                {% if post.object.image %}
+                    <img src="{{ post.object.image.url }}" alt="{{ post.object.title }}" style="max-width: 150px;">
                 {% endif %}
+                
+                <div class="actions">
+                    <a href="{% url 'ticket_edit' post.object.id %}" class="btn btn-primary btn-sm">Modifier</a>
+                    <a href="{% url 'ticket_delete' post.object.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+                </div>
             </div>
         </div>
-    {% endif %}
-    <hr>
-{% endfor %}
+        
+        {% elif post.type == 'review' %}
+        <div class="card mb-3">
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Vous avez publié une critique</h5>
+                    <p class="text-muted">{{ post.object.time_created|date:"d F Y à H:i" }}</p>
+                </div>
+                
+                <h4>{{ post.object.headline }} - 
+                    {% for i in "12345" %}
+                        {% if i|add:0 <= post.object.rating %}
+                            ★
+                        {% else %}
+                            ☆
+                        {% endif %}
+                    {% endfor %}
+                </h4>
+                <p>{{ post.object.body }}</p>
+                <div class="actions">
+                    <a href="{% url 'review_edit' post.object.id %}" class="btn btn-primary btn-sm">Modifier</a>
+                    <a href="{% url 'review_delete' post.object.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+                </div>
+                
+
+                    
+                </h5>
+
+                <div class="card mt-2">
+                    <div class="card-body">
+
+
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            {% if post.object.ticket.user == request.user %}
+                            Ticket - Vous
+                        
+                        {% else %}
+                            Ticket - {{ post.object.ticket.user.username }}
+                        
+                        {% endif %}
+                            <p class="text-muted">{{ post.object.time_created|date:"d F Y à H:i" }}</p>
+                        </div>
+                        
+                        <p><strong>{{ post.object.ticket.title }}</strong></p>
+                        <p>{{ post.object.ticket.description }}</p>
+                        
+                        {% if post.object.ticket.image %}
+                            <img src="{{ post.object.ticket.image.url }}" alt="{{ post.object.ticket.title }}" style="max-width: 100px;">
+                        {% endif %}
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+        {% endif %}
+
+    {% endfor %}
+{% else %}
+    <p>Aucun post à afficher.</p>
+{% endif %}
+
 {% endblock %}

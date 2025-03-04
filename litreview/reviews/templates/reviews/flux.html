@@ -26,10 +26,13 @@
 
 
                         <p><strong>{{ post.title }}</strong></p>
-                        {% if post.image %}
-                            <img src="{{ post.image.url }}" class="img-fluid" alt="Image du billet">
-                        {% endif %}
+
                         <p>{{ post.description }}</p>
+                        <p>
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" class="img-fluid" alt="Image du billet" style="max-width: 100px;">
+                        {% endif %}
+                    </p>
 
                         
                         {% if not post.review_set.exists %}
@@ -75,7 +78,14 @@
                         <!-- Cadre avec des informations sur le ticket -->
                         <div class="card mb-3 ticket-info" style="border: 1px solid #ddd; padding: 15px; background-color: #f9f9f9;">
                             
-                            <p><strong>Ticket- {{ post.ticket.user.username }}</strong></p>
+                            
+                            {% if post.ticket.user == request.user %}
+                            <p>Ticket - Vous</p>
+                        {% else %}
+                            <p>Ticket - {{ post.ticket.user.username }}</p>
+                        {% endif %}
+
+
                             <p><strong>{{ post.ticket.title }}</strong></p>
                             {% if post.ticket.image %}
                                 <img src="{{ post.ticket.image.url }}" class="img-fluid" alt="Image du ticket" style="max-width: 100px;">
