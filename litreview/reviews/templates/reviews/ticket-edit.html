@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Modifier le ticket</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sauvegarder</button>
-</form>
-<a href="{% url 'flux' %}">Annuler</a>
+
+
+
+<div class="card mb-3">
+    <h2 class="text-center">Modifier votre ticket</h2>
+    <div class="container">
+<form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% include '_ticket_form.html' %}
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+
+    </form>
+
+</div>
+</div>
+
+
 {% endblock content %}

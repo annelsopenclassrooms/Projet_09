@@ -53,7 +53,7 @@ def ticket_edit(request, ticket_id):
     else:
         form = TicketForm(instance=ticket)
 
-    return render(request, 'reviews/ticket-edit.html', {'form': form, 'ticket': ticket})
+    return render(request, 'reviews/ticket-edit.html', {'ticket_form': form, 'ticket': ticket})
 
 
 

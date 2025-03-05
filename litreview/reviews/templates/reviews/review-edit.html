@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Modifier la critique</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sauvegarder</button>
-</form>
-<a href="{% url 'flux' %}">Annuler</a>
+<h1>Modifier votre critique</h1>
+
+<div class="card mb-3">
+    <div class="container">
+        {% include '_review_asked.html' %}
+        <div class="card mb-3 rounded-0"">
+            <div class="card-body">
+                <h3>Critique</h3>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include '_review_form.html' %}
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock content %}

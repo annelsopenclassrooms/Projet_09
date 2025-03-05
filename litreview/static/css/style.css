@@ -72,3 +72,7 @@ body {
     margin: 0 auto; /* Centrer le conteneur */
     padding: 0 15px; /* Ajouter un peu de padding sur les côtés */
 }
+
+.custom-width {
+    width: 80%;
+}
