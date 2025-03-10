@@ -3,6 +3,7 @@ tests/
 .vscode/
 todo.txt
 exports/
+litreview/flake8_rapport/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

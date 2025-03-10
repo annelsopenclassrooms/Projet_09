@@ -23,11 +23,11 @@
     <header class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <div class="header-container">
-                <!-- Clickable logo linking to flux -->
+                <!-- Clickable logo leading to flux -->
                 <a href="{% url 'flux' %}">
-                    <img src="{% static 'images/book.png' %}" alt="LitReview Logo" class="header-logo">
+                    <img src="{% static 'images/book.png' %}" alt="Logo LitReview" class="header-logo">
                 </a>
-                <!-- Centered title linking to flux -->
+                <!-- Centered title leading to flux -->
                 <a class="navbar-brand" href="{% url 'flux' %}">LitReview</a>
             </div>
             
@@ -35,21 +35,21 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="{% url 'flux' %}">Flux</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'posts' %}">Posts</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'subscribe' %}">Subscriptions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'subscribe' %}">Abonnements</a></li>
                 <li class="nav-item logout-container">
-                    <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
+                    <a class="nav-link text-danger" href="{% url 'logout' %}">Se déconnecter</a>
                 </li>
             </ul>
 
-            <!-- Greeting Message -->
+            <!-- Welcome message -->
             <div class="greeting-container">
-                <span class="greeting">Hello, {{ request.user }}</span>
+                <span class="greeting">Bonjour, {{ request.user }}</span>
             </div>
             {% endif %}
         </div>
     </header>
 
-    <!-- Main Content Section -->
+    <!-- Main content section -->
     <main class="container mt-4">
         <div class="custom-container">
             {% block content %}{% endblock %}

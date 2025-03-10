@@ -1,7 +1,5 @@
-# blog/forms.py
 from django import forms
 from . import models
-
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
