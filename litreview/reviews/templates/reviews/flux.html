@@ -15,14 +15,20 @@
 
                     {% if post.type == "ticket" %}
 
-                        <p>
-                            {% if post.user == request.user %}
-                                Vous avez demandé une critique
-                            {% else %}
-                                {{ post.user.username }} a demandé une critique
-                            {% endif %}
-                            
-                        </p>
+
+
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <p>
+                                {% if post.user == request.user %}
+                                    Vous avez demandé une critique
+                                {% else %}
+                                    {{ post.user.username }} a demandé une critique
+                                {% endif %}
+                                
+                            </p>
+                            <p class="text-muted">{{ post.time_created|date:"d F Y à H:i" }}</p>
+                        </div>
 
 
                         <p><strong>{{ post.title }}</strong></p>
@@ -48,18 +54,22 @@
 
                     {% elif post.type == "review" %}
 
-                        <h5 class="card-title">
-                            {% if post.user == request.user %}
-                                Vous avez publié une critique
-                            {% else %}
-                                {{ post.user.username }} a publié une critique
-                            {% endif %}
-                            
-                        </h5>
 
+
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        <p>
+                                {% if post.user == request.user %}
+                                    Vous avez publié une critique
+                                {% else %}
+                                    {{ post.user.username }} a publié une critique
+                                {% endif %}
+                                
+                            </p>
+                            <p class="text-muted">{{ post.time_created|date:"d F Y à H:i" }}</p>
+                        </div>
 
                         <p>{{ post.headline }} - 
-
 
                         
                             {% for i in "12345" %}

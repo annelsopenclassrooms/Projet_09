@@ -192,18 +192,22 @@ def review_delete(request, review_id):
 
     return render(request, 'reviews/review-delete.html', {'review': review})
 
+
 @login_required
 def review_edit(request, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)  # Vérifie que c'est son ticket
+    review = get_object_or_404(Review, id=review_id, user=request.user)  # Ensure the user owns the review
+    ticket = review.ticket  # Get the associated ticket
+
     if request.method == "POST":
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            return redirect('flux')  # Redirige après modification
+            return redirect('flux')  # Redirect after modification
     else:
         form = ReviewForm(instance=review)
 
-    return render(request, 'reviews/review-edit.html', {'form': form, 'review': review})
+    # Pass both the form and the ticket to the template
+    return render(request, 'reviews/review-edit.html', {'review_form': form, 'review': review, 'ticket': ticket})
 
 
 @login_required

@@ -1,17 +1,23 @@
 <!-- Premier cadre : "Vous êtes en train de poster en réponse à" -->
 <div class="border p-3"> <!-- Cadre avec bordure et padding -->
     <h3>Vous êtes en train de poster en réponse à</h3>
-    <div class="border p-3"> <!-- Encadré interne pour le ticket -->
-        {% with ticket=ticket|default:review.ticket %} <!-- Utilisation de `with` pour définir `ticket` -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <p>{{ ticket.user }} a demandé une critique</p>
-                <p class="text-muted">{{ ticket.time_created|date:"d F Y à H:i" }}</p>
-            </div>
-            <h3>{{ ticket.title }}</h3>
-            <p>{{ ticket.description }}</p>
-            {% if ticket.image %}
-                <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" style="max-width: 150px;">
-            {% endif %}
-        {% endwith %}
+
+    <div class="card mb-3 rounded-0">
+
+    {% with ticket=review.ticket|default:ticket %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <p>{{ ticket.user }} a demandé une critique</p>
+        <p class="text-muted">{{ ticket.time_created|date:"d F Y à H:i" }}</p>
     </div>
-</div>
+    <h3>{{ ticket.title }}</h3>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" style="max-width: 150px;">
+    {% endif %}
+{% endwith %}
+
+</div></div>
+
+
+
+
