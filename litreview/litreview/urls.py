@@ -38,7 +38,7 @@ urlpatterns = [
     path('review-post/', reviews.views.review_post, name='review_post'),
     path('review-delete/<int:review_id>/', reviews.views.review_delete, name='review_delete'),
     path('review-edit/<int:review_id>/', reviews.views.review_edit, name='review_edit'),
-    path('unfollow_user/<int:user_id>/', reviews.views.unfollow_user, name='unfollow_user'),
+    path('unfollow-user/<int:user_id>/', reviews.views.unfollow_user, name='unfollow_user'),
     path('remove-follower/<int:follower_id>/', reviews.views.remove_follower, name='remove_follower'),
     path('create-ticket-and-review/', reviews.views.create_ticket_and_review, name='create_ticket_and_review'),
 

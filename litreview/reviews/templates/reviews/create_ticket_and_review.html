@@ -4,7 +4,7 @@
 
 {% if ticket_form.errors or review_form.errors %}
     <div class="alert alert-danger">
-        <strong>Erreurs détectées :</strong>
+        <strong>Errors detected:</strong>
         <ul>
             {% for field, errors in ticket_form.errors.items %}
                 {% for error in errors %}
@@ -20,18 +20,22 @@
     </div>
 {% endif %}
 
+<!-- Form for creating a ticket and review -->
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <p>Livre/article</p>
+    <!-- Ticket section -->
+    <p>Book/Article</p>
     
     {% include '_ticket_form.html' %}
     
-    <h2>Critique</h2>
+    <!-- Review section -->
+    <h2>Review</h2>
     {% include '_review_form.html' %}
     
+    <!-- Submit button -->
     <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary">Publier</button>
+        <button type="submit" class="btn btn-primary">Publish</button>
     </div>
 </form>
 

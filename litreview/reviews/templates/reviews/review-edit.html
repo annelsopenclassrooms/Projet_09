@@ -5,12 +5,15 @@
 <div class="card mb-3 rounded-0">
     <h2 class="text-center">Modifier votre critique</h2>
     <div class="container">
+        <!-- Include the ticket being reviewed -->
         {% include '_review_asked.html' %}
-        <div class="card mb-3 rounded-0"">
+        <div class="card mb-3 rounded-0">
             <div class="card-body">
                 <h3>Critique</h3>
+                <!-- Review edit form -->
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <!-- Include the review form -->
                     {% include '_review_form.html' %}
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">Envoyer</button>
@@ -20,6 +23,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock content %}

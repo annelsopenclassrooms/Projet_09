@@ -2,15 +2,13 @@
 {% load static %}
 {% block content %}
 
-
 {% if posts %}
     {% for post in posts %}
         {% if post.type == 'ticket' %}
         <div class="card mb-3">
             <div class="card-body">
-                
 
-                
+                <!-- Ticket header -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Vous avez publié un ticket</h4>
                     <p class="text-muted">{{ post.object.time_created|date:"d F Y à H:i" }}</p>
@@ -19,10 +17,12 @@
                 
                 <p>{{ post.object.description }}</p>
                 
+                <!-- Ticket image -->
                 {% if post.object.image %}
                     <img src="{{ post.object.image.url }}" alt="{{ post.object.title }}" style="max-width: 150px;">
                 {% endif %}
                 
+                <!-- Ticket actions -->
                 <div class="actions">
                     <a href="{% url 'ticket_edit' post.object.id %}" class="btn btn-primary btn-sm">Modifier</a>
                     <a href="{% url 'ticket_delete' post.object.id %}" class="btn btn-danger btn-sm">Supprimer</a>
@@ -34,11 +34,13 @@
         <div class="card mb-3">
             <div class="card-body">
 
+                <!-- Review header -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5>Vous avez publié une critique</h5>
                     <p class="text-muted">{{ post.object.time_created|date:"d F Y à H:i" }}</p>
                 </div>
                 
+                <!-- Review headline and rating -->
                 <h4>{{ post.object.headline }} - 
                     {% for i in "12345" %}
                         {% if i|add:0 <= post.object.rating %}
@@ -49,45 +51,37 @@
                     {% endfor %}
                 </h4>
                 <p>{{ post.object.body }}</p>
+
+                <!-- Review actions -->
                 <div class="actions">
                     <a href="{% url 'review_edit' post.object.id %}" class="btn btn-primary btn-sm">Modifier</a>
                     <a href="{% url 'review_delete' post.object.id %}" class="btn btn-danger btn-sm">Supprimer</a>
                 </div>
-                
 
-                    
-                </h5>
-
+                <!-- Embedded ticket information -->
                 <div class="card mt-2">
                     <div class="card-body">
 
-
-
+                        <!-- Embedded ticket header -->
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             {% if post.object.ticket.user == request.user %}
-                            Ticket - Vous
-                        
-                        {% else %}
-                            Ticket - {{ post.object.ticket.user.username }}
-                        
-                        {% endif %}
+                                Ticket - Vous
+                            {% else %}
+                                Ticket - {{ post.object.ticket.user.username }}
+                            {% endif %}
                             <p class="text-muted">{{ post.object.time_created|date:"d F Y à H:i" }}</p>
                         </div>
                         
+                        <!-- Embedded ticket details -->
                         <p><strong>{{ post.object.ticket.title }}</strong></p>
                         <p>{{ post.object.ticket.description }}</p>
                         
+                        <!-- Embedded ticket image -->
                         {% if post.object.ticket.image %}
                             <img src="{{ post.object.ticket.image.url }}" alt="{{ post.object.ticket.title }}" style="max-width: 100px;">
                         {% endif %}
                     </div>
                 </div>
-
-
-
-
-
-
 
             </div>
         </div>

@@ -4,7 +4,6 @@
 
 <div class="custom-container">
 
-
     <h2>Suivre d'autres utilisateurs</h2>
 
     {% if messages %}
@@ -15,7 +14,7 @@
     </div>
     {% endif %}
 
-    <!-- Formulaire de recherche -->
+    <!-- Search form -->
     <form method="POST" class="mb-4">
         {% csrf_token %}
         <div class="input-group">
@@ -24,16 +23,15 @@
         </div>
     </form>
 
-    <!-- Résultats de la recherche -->
+    <!-- Search results -->
     {% if search_results is not None %}
         <h3>Résultats de la recherche :</h3>
         {% if search_results %}
         <table class="table">
-
             <tbody>
                 {% for user in search_results %}
                 <tr>
-                    <td style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <td class="d-flex align-items-center justify-content-between w-100">
                         <span>{{ user.username }}</span>
                         <form method="POST">
                             {% csrf_token %}
@@ -45,23 +43,19 @@
                 {% endfor %}
             </tbody>
         </table>
-        
         {% else %}
             <p>Aucun utilisateur trouvé.</p>
         {% endif %}
     {% endif %}
 
-    <!-- Liste des abonnements -->
+    <!-- List of followed users -->
     <h3>Abonnements</h3>
     {% if user_follows %}
-
-
-
     <table class="table">
         <tbody>
             {% for follow in user_follows %}
             <tr>
-                <td style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                <td class="d-flex align-items-center justify-content-between w-100">
                     <span>{{ follow.followed_user.username }}</span>
                     <form method="POST" action="{% url 'unfollow_user' follow.followed_user.id %}">
                         {% csrf_token %}
@@ -72,19 +66,18 @@
             {% endfor %}
         </tbody>
     </table>
-   
     {% else %}
         <p>Vous ne suivez encore personne.</p>
     {% endif %}
 
-    <!-- Liste des abonnés -->
+    <!-- List of followers -->
     <h3>Abonnés</h3>
     {% if followers %}
     <table class="table">
         <tbody>
             {% for follower in followers %}
             <tr>
-                <td style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                <td class="d-flex align-items-center justify-content-between w-100">
                     <span>{{ follower.user.username }}</span>
                     <form method="POST" action="{% url 'remove_follower' follower.user.id %}">
                         {% csrf_token %}
@@ -95,7 +88,6 @@
             {% endfor %}
         </tbody>
     </table>
-    
     {% else %}
         <p>Aucun utilisateur ne vous suit pour le moment.</p>
     {% endif %}

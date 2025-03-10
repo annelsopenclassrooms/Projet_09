@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
 <div class="auth-container">
     <div class="auth-row">
-        <!-- Colonne Inscription (à gauche) -->
+        <!-- Sign-up column (left) -->
         <div class="auth-column">
             <h2>Inscription</h2>
             <p>Inscrivez-vous maintenant</p>
             <a href="{% url 'signup' %}" class="btn btn-success auth-btn">S'inscrire</a>
         </div>
 
-        <!-- Colonne Connexion (à droite) -->
+        <!-- Login column (right) -->
         <div class="auth-column">
             <h2>Connexion</h2>
 
@@ -19,7 +20,6 @@
                     {% for message in messages %}
                         <li class="{{ message.tags }}">{{ message }}</li>
                     {% endfor %}
-
                 </ul>
             {% endif %}
 

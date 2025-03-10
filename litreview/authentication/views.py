@@ -1,12 +1,7 @@
 from django.shortcuts import render
-
-# Create your views here.
 from . import forms
-
-# authentication/views.py
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect, render
-from . import forms
+from django.shortcuts import redirect
 from django.conf import settings
 from django.contrib import messages
 
@@ -16,8 +11,8 @@ def login_page(request):
 
     # Supprimer les anciens messages pour éviter les doublons après une redirection
     storage = messages.get_messages(request)
-    storage.used = True  
-    
+    storage.used = True
+
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
 
@@ -41,7 +36,8 @@ def logout_user(request):
     logout(request)
     messages.success(request, 'Déconnexion réussie.')
     return redirect('login')
-    
+
+
 def signup_page(request):
 
     form = forms.SignupForm()

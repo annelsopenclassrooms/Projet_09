@@ -1,21 +1,19 @@
-from django.shortcuts import render
-
 # Create your views here.
-from django.contrib.auth.decorators import login_required
 
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, get_object_or_404
 from . import forms
 from .models import Ticket
 from .models import Review
 from .models import UserFollows
 from .forms import TicketForm
 from .forms import ReviewForm
-
-
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
 
 @login_required
 def ticket_post(request):
@@ -34,7 +32,8 @@ def ticket_post(request):
 
 @login_required
 def ticket_delete(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)  # Vérifie que l'utilisateur est bien le propriétaire
+    # Vérifie que l'utilisateur est bien le propriétaire
+    ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
     if request.method == "POST":
         ticket.delete()
         return redirect('flux')  # Redirige vers la page d'accueil après suppression
@@ -54,7 +53,6 @@ def ticket_edit(request, ticket_id):
         form = TicketForm(instance=ticket)
 
     return render(request, 'reviews/ticket-edit.html', {'ticket_form': form, 'ticket': ticket})
-
 
 
 @login_required
@@ -96,11 +94,12 @@ def flux(request):
 def subscribe(request):
     user_follows = UserFollows.objects.filter(user=request.user)  # Utilisateurs que je suis
     followers = UserFollows.objects.filter(followed_user=request.user)  # Utilisateurs qui me suivent
-    search_results = None  # Initialisation des résultats de recherche
+    # Initialisation des résultats de recherche
+    search_results = None
 
     # Supprimer les anciens messages pour éviter les doublons après une redirection
     storage = messages.get_messages(request)
-    storage.used = True  
+    storage.used = True
 
     if request.method == "POST":
         if "search_user" in request.POST:  # Si la requête vient de la recherche
@@ -141,9 +140,6 @@ def unfollow_user(request, user_id):
     else:
         messages.error(request, "Vous ne suivez pas cet utilisateur.")
 
-    #return redirect("user_follows_list")  
-
-
     return redirect('subscribe')
 
 
@@ -151,14 +147,14 @@ def unfollow_user(request, user_id):
 def remove_follower(request, follower_id):
     # Récupérer l'entrée où l'utilisateur actuel est suivi par le follower
     follow_relationship = get_object_or_404(
-        UserFollows, 
+        UserFollows,
         followed_user=request.user,  # L'utilisateur actuel est celui qui est suivi
         user_id=follower_id          # Le follower est celui qui suit
     )
-    
+
     # Supprimer l'entrée dans la table UserFollows
     follow_relationship.delete()
-    
+
     # Rediriger l'utilisateur vers une page appropriée
     return redirect('subscribe')
 
@@ -183,9 +179,11 @@ def review_post(request):
             return redirect('flux')
     return render(request, 'reviews/review-post.html', context={'form': form, 'ticket': ticket})
 
+
 @login_required
 def review_delete(request, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)  # Vérifie que l'utilisateur est bien le propriétaire
+    # Vérifie que l'utilisateur est bien le propriétaire
+    review = get_object_or_404(Review, id=review_id, user=request.user)
     if request.method == "POST":
         review.delete()
         return redirect('flux')  # Redirige vers la page d'accueil après suppression
@@ -195,7 +193,8 @@ def review_delete(request, review_id):
 
 @login_required
 def review_edit(request, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)  # Ensure the user owns the review
+    # Ensure the user owns the review
+    review = get_object_or_404(Review, id=review_id, user=request.user)
     ticket = review.ticket  # Get the associated ticket
 
     if request.method == "POST":

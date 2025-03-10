@@ -3,14 +3,12 @@
 <h1>Supprimer la critique</h1>
 <p>Es-tu sûr(e) de vouloir supprimer ce ticket ?</p>
 
+<!-- Confirmation form for deletion -->
 <form method="post">
     {% csrf_token %}
     <button type="submit">Oui, supprimer</button>
-    
 </form>
 
+<!-- Cancel and return to the feed -->
 <a href="{% url 'flux' %}">Annuler</a>
 {% endblock content %}
-
-
-

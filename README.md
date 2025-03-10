@@ -55,4 +55,4 @@ L'application utilise les modèles suivants :
 - Base de données **SQLite** incluse.
 - Respect des conventions **PEP8**.
 
-
+ 
